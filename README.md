@@ -185,6 +185,7 @@ DELETE /api/users/:id/
 
 
 # Dependencies Used 
+  ```json
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
@@ -199,7 +200,7 @@ DELETE /api/users/:id/
     "nodemon": "^1.18.10",
     "supertest": "^4.0.0"
   }
-
+```
 
 # Author 
 

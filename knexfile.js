@@ -1,7 +1,5 @@
 // Update with your config settings.
 
-const pgConnection = process.env.DATABASE_URL || "postgresql://postgres@localhost/auth";
-// if using a local postgres server, please create the database man
 
 module.exports = {
 
@@ -37,20 +35,4 @@ testing: {
       directory: "./data/seeds",
   },
 },
-
-
-  production: {
-    client: "pg",
-    connection: pgConnection,
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      directory: "./database/migrations",
-    },
-    seeds: {
-      directory: "./database/seeds",
-    },
-  },
-};
+}
