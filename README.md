@@ -2,13 +2,14 @@
 This is the repository for the Backend team of WaterMyPlants2
  
 
- # Back-end
-Water My Plants 
+# Back-end
+Water My Plants 2
 
 # Documentation:
 
 # Base URL for Deployed API
 
+https://water-my-plants-backend-drake.herokuapp.com/
 
 
 # Endpoints
@@ -24,10 +25,10 @@ Water My Plants
 
 
 POST /auth/register
-
+```json
 {
 	"username": "cat", // string, unique
-	"password": "pass" // string
+	"password": "pass", // string
 	"phoneNumber": 676767, // integer, unique
 }
 201 success
@@ -45,9 +46,9 @@ POST /auth/register
 {
     "message": "Please enter information for all required fields."
 }
-
+```
 POST /auth/login
-
+```json
 {
 	"username": "dog",
 	"password": "pass"
@@ -59,11 +60,11 @@ POST /auth/login
 }
 401 fail
 {
-    message: 'Invalid Credentials'
+    "message": "Invalid Credentials"
 }
-
+```
 GET /api/users
-
+```json
 200  success
 [
     {
@@ -101,51 +102,50 @@ GET /api/users
 400 fail
 [
     {
-    message: 'An Error occurred when retrieving list of users'
+    "message": "An Error occurred when retrieving list of users"
     }
 ]
-
+```
 GET /api/users/:id
-
+```json
 200 success
-[{
+{
     "id": 2,
     "username": "Goblin",
     "password": "password",
     "phoneNumber": "222222222"
 }
-    }]
 500 fail
 {
-    message: 'Failed to get that user'
+    "message": "Failed to get that user"
 }
-
+```
 GET /api/users/:id/plants
-
+```json
 201 success
 [
-    {]
-        user_id: 1,
-        nickname:'Allen', 
-           species: 'Allium genus', 
-           h2oFrequency: '5 times a week', 
-           image: 'https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80'
+    {
+    "user_id": 1,
+        "nickname":"Allen", 
+           "species": "Allium genus", 
+           "h2oFrequency": "5 times a week", 
+           "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
     },
     {
-      user_id: 1,
-          nickname:'Tasty', 
-          species: 'Solanum lycopersicum', 
-          h2oFrequency: '3 times a week', 
-          image: 'https://images.unsplash.com/photo-1518977822534-7049a61ee0c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80'
+      "user_id": 1,
+          "nickname": "Tasty", 
+          "species": "Solanum lycopersicum", 
+          "h2oFrequency": "3 times a week", 
+          "image": "https://images.unsplash.com/photo-1518977822534-7049a61ee0c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80"
     }
 ]
 500 fail
 {
     "message": "There are no plants with this user"
 }
-
+```
 DELETE /api/users/:id/
-
+```json
 {
     "password": "testing7",
     "phoneNumber": "4545454548"
@@ -158,9 +158,9 @@ DELETE /api/users/:id/
 }
 500 fail
 {
-    message: 'Failed to delete that user.'
+    "message": "Failed to delete that user."
 }
-
+```
 
 # Table Requirements
 
