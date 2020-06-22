@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 
-// gets user with plants by id Ex: GET localhost:7171/api/users/:id/plants
+// gets all plants associated with a specific user by id Ex: GET localhost:7171/api/users/:id/plants
 router.get('/:id/plants', validateUserId, (req, res) => {
 	Users.findPlantsById(req.params.id).then((plants) => res.status(200).json(plants)).catch((error) => {
 		res.status(500).json({ message: 'An Error occurred when retrieving info for user id' });
@@ -27,7 +27,7 @@ router.get('/:id', validateUserId, (req, res) => {
 	const { id } = req.params;
 	Users.findById(id)
 		.then((user) => {
-				res.json(user);
+			res.status(200).json(user);
 			})
 		.catch((error) => {
 			res.status(500).json({ message: 'Failed to get that user' });
@@ -40,7 +40,7 @@ router.post('/:id/plants', validateUserId, (req, res) => {
 	const plants = { ...req.body, user_id: req.params.id };
 
 	Plants.add(plants).then((added) => res.status(201).json(added)).catch((error) => {
-		res.status(500).json({ message: 'An Error occuring while trying to get plant with user id ' });
+		res.status(500).json({ message: 'There are no plants with this user' });
 	});
 });
 

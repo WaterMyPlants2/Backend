@@ -20,7 +20,7 @@ router.post('/register', (req, res) => {
       });
     })
     .catch(error => {
-      res.status(500).json(error);
+		res.status(400).json({ message: 'Please enter information for all required fields.' });
     });
 });
 
@@ -36,7 +36,7 @@ router.post('/login', (req, res) => {
         // a jwt should be generated
         const token = generateToken(user);
 
-        res.status(200).json({message: `Welcome ${user.username}!`, token: token });
+        res.status(200).json({ message: `Welcome ${user.username}!`, token: token });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });
       }
