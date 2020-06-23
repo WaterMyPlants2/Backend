@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const Users = require('../users/users-model.js');
+const Plants = require('../plants/plants-model.js');
 const constants = require("../config/constants.js");
 
 // register new user Ex: POST localhost:7171/api/auth/register
@@ -16,7 +17,7 @@ router.post('/register', (req, res) => {
       // a jwt should be generated
       const token = generateToken(saved);
       res.status(201).json({
-        user: saved, token
+        newUser: saved, token
       });
     })
     .catch(error => {
@@ -36,7 +37,13 @@ router.post('/login', (req, res) => {
         // a jwt should be generated
         const token = generateToken(user);
 
-        res.status(200).json({ message: `Welcome ${user.username}!`, token: token });
+        // res.status(200).json({ message: `Welcome ${user.username}!`, token: token });
+        res.status(200).json({ 
+        welcome: user.username,
+        user_id: user.id,
+        phoneNumber: user.phoneNumber,
+        token: token
+      });
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });
       }
@@ -46,10 +53,18 @@ router.post('/login', (req, res) => {
     });
 });
 
+// gets an array of all plants for all users Ex: GET localhost:7171/api/auth/plants
+router.get('/plants', (req, res) => {
+  Plants.find()
+		.then((plants) => {
+			res.status(200).json(plants);
+		})
+		.catch((err) => res.status(400).json({ message: 'An Error occurred when retrieving list of users' }))
+});
 
+// header payload and verify signature
+// payload -> username, id, roles, expiration date
 function generateToken(user) {
-  // header payload and verify signature
-  // payload -> username, id, roles, expiration date
   const payload = {
     sub: user.id,
     username: user.username,

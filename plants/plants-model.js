@@ -10,7 +10,8 @@ module.exports = {
 
 // finds plant
 function find() {
-  return db('plants');
+  return db('plants')
+  .select('id', 'species', 'h2oFrequency', 'image')
 }
 
 // finds plant by specific id
