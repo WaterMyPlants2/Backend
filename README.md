@@ -13,176 +13,258 @@ https://water-my-plants-backend-drake.herokuapp.com/
 
 
 # Endpoints
-| Request | URL | Description |
-| ------- | --- | ----------- |
-| POST | /api/auth/register | creates a new user with username, phone number and password |
-| POST | /api/auth/login | login valid user with username and password |
-| GET | /api/users | view a list of all users |
-| GET | /api/users/:id | find users by user ID |
-| GET | /api/users/:id/plants | gets user with plants by ID |
-| PUT | /api/users/:id | updates user password and phone number by ID |
-| DELETE | /api/users/:id | delete a user by ID |
-
-
-POST /auth/register
-```json
-{
-	"username": "cat", // string, unique
-	"password": "pass", // string
-	"phoneNumber": 676767, // integer, unique
-}
-201 success
-{
-    "user": {
-        "id": 5,
-        "username": "cat",
-        "password": "$2a$12$SkhCOMJqfjC1Gs90nIRBk.NzUpkSHFwF7frdYTtMze..e1lHoE7Ye",
-        "phoneNumber": "676767"
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsInVzZXJuYW1lIjoiY2F0IiwiaWF0IjoxNTkyNzgzNzAxLCJleHAiOjE1OTMwNDI5MDF9.f4rsCrGb8m5mBloPDZJDmI81Wgmf4RoBcF_BuBAwK8g"
-}
-
-400 fail
-{
-    "message": "Please enter information for all required fields."
-}
-```
-POST /auth/login
-```json
-{
-	"username": "dog",
-	"password": "pass"
-}
-200 success
-{
-     "message": "Welcome dog!",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsInVzZXJuYW1lIjoiZG9nIiwiaWF0IjoxNTkyNzk0MTY2LCJleHAiOjE1OTMwNTMzNjZ9.CdGozDkyFVGgp_SJwyAmF1TU_uvWUIzzqRg-VxvGp7w"
-}
-401 fail
-{
-    "message": "Invalid Credentials"
-}
-```
-GET /api/users
-```json
-200  success
-[
-    {
-        "id": 1,
-        "username": "Dra",
-        "phoneNumber": "123123123"
-    },
-    {
-        "id": 2,
-        "username": "Goblin",
-        "phoneNumber": "222222222"
-    },
-    {
-        "id": 3,
-        "username": "Wolf",
-        "phoneNumber": "321321321"
-    },
-    {
-        "id": 4,
-        "username": "dog",
-        "phoneNumber": "4545454548"
-    },
-    {
-        "id": 5,
-        "username": "cat",
-        "phoneNumber": "676767"
-    },
-    {
-        "id": 7,
-        "username": "shark",
-        "phoneNumber": "989898"
-    }
-]
-
-400 fail
-[
-    {
-    "message": "An Error occurred when retrieving list of users"
-    }
-]
-```
-GET /api/users/:id
-```json
-200 success
-{
-    "id": 2,
-    "username": "Goblin",
-    "password": "password",
-    "phoneNumber": "222222222"
-}
-500 fail
-{
-    "message": "Failed to get that user"
-}
-```
-GET /api/users/:id/plants
-```json
-201 success
-[
-    {
-    "user_id": 1,
-        "nickname":"Allen", 
-           "species": "Allium genus", 
-           "h2oFrequency": "5 times a week", 
-           "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
-    },
-    {
-      "user_id": 1,
-          "nickname": "Tasty", 
-          "species": "Solanum lycopersicum", 
-          "h2oFrequency": "3 times a week", 
-          "image": "https://images.unsplash.com/photo-1518977822534-7049a61ee0c2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80"
-    }
-]
-500 fail
-{
-    "message": "There are no plants with this user"
-}
-```
-DELETE /api/users/:id/
-```json
-{
-    "password": "testing7",
-    "phoneNumber": "4545454548"
-
-}
-
- success
-{
-    "removed": 1
-}
-500 fail
-{
-    "message": "Failed to delete that user."
-}
-```
+| Request | URL                         | Description |
+| ------- | --------------------------  | ----------- |
+| POST    | /api/auth/register          | creates a new user with username, phone number and password |
+| POST    | /api/auth/login             | login valid user with username and password |
+| POST    | /api/users/:id/plants       | adds plant for a specific user (REQUIRES TOKEN) |
+| GET     | /api/auth/plants            | gets an array of all plants for all users |
+| GET     | /api/users                  | gets an array of all users (REQUIRES TOKEN)|
+| GET     | /api/users/:id              | gets user info for a user with given ID (REQUIRES TOKEN) |
+| GET     | /api/users/:id/plants       | gets an array of plants for a specific user (REQUIRES TOKEN) |
+| GET     | /api/plants/:id             | gets info for a plant with a given ID (REQUIRES TOKEN) |
+| PUT     | /api/users/:id              | updates info for a user with a given ID  (REQUIRES TOKEN) |
+| PUT     | /api/plants/:id             | updates info for a plant with a given ID (REQUIRES TOKEN) |
+| DELETE  | /api/users/:id              | deletes a user with a given ID (REQUIRES TOKEN) |
+| DELETE  | /api/plants/:id             | deletes a plant with a given ID (REQUIRES TOKEN) |
 
 # Table Requirements
 
 # Users
-| Name | Type | Required | Unique | Notes |
-| ---- | ---- | -------- | ------ | ----- |
-| id | integer | yes | yes | users id  |
-| username | string | yes | yes | users name |
-| password | string | yes | no | users password |
-| phoneNumber | string | yes | yes | users phoneNumber |
+| Name          | Type    | Required | Unique | Notes                                      |
+| ------------- | ------- | ------ | -------- | ------------------------------------------ |
+| id            | integer | yes    | yes      | users id  (auto generated by API)          |
+| username      | string  | yes    | yes      | users name                                 |
+| password      | string  | yes    | no       | users password                             |
+| phoneNumber   | string  | yes    | yes      | users phoneNumber                          |
 
 
 # Plants
-| Name | Type | Required | Unique | Notes |
-| ---- | ---- | -------- | ------ | ----- |
-| id | integer | yes | yes | plants id |
-| nickname | string | yes | no | plants nickname |
-| species | string | yes | no | species for the plants |
-| h2oFrequency | string | yes | no | how many times the plants need to be watered (twice a week) |
-| image | string | no | no | url address for image of that plant if needed |
-| user_id | integer| yes | no | plant associated with a specific user by id |
+| Name          | Type    | Required | Unique | Notes                                                       |
+| ------------- | ------- | -------- | ------ | --------------------------------------------------------------------------------------------- |
+| id            | integer | yes      | yes    | plants id (auto generated by API)                                                             |
+| nickname      | string  | yes      | no     | plants nickname                                                                               |
+| species       | string  | yes      | no     | plants species                                                                                |
+| h2oFrequency  | string  | yes      | no     | how many times the plants need to be watered (twice a week)                                   |
+| image         | string  | no       | no     | url address for image of that plant (optional)                                                |
+| user_id       | integer | yes      | no     | user's ID associated with plant - foreign key (will auto populate when a new seed is created) |
 
+
+# Successfull Requests & Returns 
+
+# Examples:
+
+## POST /api/auth/register
+### Request Body:
+```json
+{
+    "username": "jon",
+    "password": "snow",
+    "phoneNumber": "123123"
+}
+```
+### Returns:
+```json
+{
+    "newUser": {
+        "id": 6,
+        "username": "jon",
+        "phoneNumber": "123123"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsInVzZXJuYW1lIjoiam9uIiwiaWF0IjoxNTkyOTQ4MjY4LCJleHAiOjE1OTMyMDc0Njh9.3vG0YC7Cf0I-w6IPxnjGkVx0u0wx8dxMCx-7TltDVqk"
+}
+```
+
+## POST /api/auth/login 
+ ### Request Body:
+ ```json
+ {
+    "username": "jon",
+    "password": "snow"
+}
+ ```
+ ### Returns:
+ ```json
+ {
+    "welcome": "jon",
+    "user_id": 6,
+    "phoneNumber": "123123",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjYsInVzZXJuYW1lIjoiam9uIiwiaWF0IjoxNTkyOTQ4NjU4LCJleHAiOjE1OTMyMDc4NTh9.kMLo7IG8kmpBx-K948w3Hw7bONsAUkOlrckTerjcX1o"
+}
+ ```
+
+## POST /api/users/:id/plants
+### Request Body:
+```json
+{
+    "nickname": "Green", 
+    "species": "Mr.Green", 
+    "h2oFrequency": "300 times a week", 
+    "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
+}
+```
+### Returns:
+```json
+{
+    "id": 6,
+    "nickname": "Green",
+    "species": "Mr.Green",
+    "h2oFrequency": "300 times a week",
+    "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80",
+    "user_id": 1
+}
+```
+
+## GET /api/auth/plants
+### Returns:
+```json
+[
+    {
+        "id": 4,
+        "species": "Allium genus",
+        "h2oFrequency": "5 times a week",
+        "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
+    },
+    {
+        "id": 6,
+        "species": "Mr.Green",
+        "h2oFrequency": "300 times a week",
+        "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
+    }
+]
+```
+
+## GET /api/users
+### Returns:
+```json
+[
+    {
+        "id": 1,
+        "username": "cat",
+        "phoneNumber": "676767"
+    },
+    {
+        "id": 2,
+        "username": "liz",
+        "phoneNumber": "3232"
+    },
+    {
+        "id": 3,
+        "username": "mark",
+        "phoneNumber": "7171"
+    },
+    {
+        "id": 4,
+        "username": "brian",
+        "phoneNumber": "56565"
+    },
+    {
+        "id": 6,
+        "username": "jon",
+        "phoneNumber": "123123"
+    }
+]
+```
+
+## GET /api/users/:id
+### Returns:
+```json
+{
+    "id": 6,
+    "username": "jon",
+    "phoneNumber": "123123"
+}
+```
+
+## GET /api/users/:id/plants
+### Returns:
+```json
+[
+    {
+        "plant_id": 4,
+        "nickname": "Allen",
+        "species": "Allium genus",
+        "h2oFrequency": "5 times a week",
+        "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80",
+        "user": "cat"
+    },
+    {
+        "plant_id": 6,
+        "nickname": "Green",
+        "species": "Mr.Green",
+        "h2oFrequency": "300 times a week",
+        "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80",
+        "user": "cat"
+    }
+]
+```
+## GET /api/plants/:id
+### Returns:
+```json
+{
+    "id": 6,
+    "nickname": "Green",
+    "species": "Mr.Green",
+    "h2oFrequency": "300 times a week",
+    "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80",
+    "user_id": 1
+}
+```
+
+## PUT /api/users/:id
+### Request Body(Can updates user's info):
+```json
+{   "username": "jon",
+    "password": "stark",
+    "phoneNumber": "555"
+}
+```
+### Returns(Password will update BUT it will not return the password for security purposes):
+```json
+{
+    "id": 6,
+    "username": "jon",
+    "phoneNumber": "555"
+}
+```
+
+## PUT /api/plants/:id
+### Request Body:
+```json
+{
+    "nickname": "Tomato",
+    "species": "Mr.Red",
+    "h2oFrequency": "2 times a week",
+    "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80"
+}
+```
+### Returns:
+```json
+{
+    "id": 6,
+    "nickname": "Tomato",
+    "species": "Mr.Red",
+    "h2oFrequency": "2 times a week",
+    "image": "https://images.unsplash.com/photo-1558350315-8aa00e8e4590?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80",
+    "user_id": 1
+}
+```
+
+## DELETE /api/users/:id 
+### Returns:
+```json
+{
+    "message": "User with ID 6 has been removed"
+}
+```
+
+## DELETE /api/plants/:id
+### Returns:
+```json 
+{
+    "message": "Plant with ID 6 has been removed"
+}
+```
 
 # Dependencies Used 
   ```json

@@ -17,7 +17,11 @@ router.get('/', (req, res) => {
 
 // gets all plants associated with a specific user by id Ex: GET localhost:7171/api/users/:id/plants
 router.get('/:id/plants', validateUserId, (req, res) => {
-	Users.findPlantsById(req.params.id).then((plants) => res.status(200).json(plants)).catch((error) => {
+
+	Users.findPlantsById(req.params.id)
+	.then((plants) => res.status(200).json(plants))
+	.catch((error) => {
+		console.log('error', error)
 		res.status(500).json({ message: 'An Error occurred when retrieving info for user id' });
 	});
 });
@@ -65,7 +69,7 @@ router.delete('/:id', validateUserId, (req, res) => {
 
 	Users.remove(id)
 		.then((deleted) => {
-				res.json({ removed: deleted });
+				res.json({ message: `User with ID ${req.params.id} has been removed` });
 			})
 		.catch((error) => {
 			res.status(500).json({ message: 'Failed to delete that user.' });

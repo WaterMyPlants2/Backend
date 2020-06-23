@@ -23,12 +23,12 @@ function findPlantsById(id) {
       'plants.id AS plant_id',
       'plants.nickname',
       'plants.species',
-      'plants.h20_Frequency',
-      'plants.image_url',
+      'plants.h2oFrequency',
+      'plants.image',
       'users.username AS user'
     )
     .where({ 'plants.user_id': id})
-    .join('users', 'users_id', 'plants.user_id');
+    .join('users', 'users.id', 'plants.user_id');
 }
 
 // finds existing user by username and password
@@ -46,7 +46,7 @@ async function add(user) {
 
 function findById(id) {
     return db('users')
-    .select('*')
+    .select('id', 'username', 'phoneNumber')
     .where({ id })
     .first();
 }

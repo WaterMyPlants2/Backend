@@ -48,7 +48,7 @@ router.delete('/:id', validatePlantsId, (req, res) => {
 
   Plants.remove(id)
     .then(deleted => {
-        res.json({ removed: deleted });
+        res.json({ message: `Plant with ID ${req.params.id} has been removed` });
       })
     
     .catch(error => {
