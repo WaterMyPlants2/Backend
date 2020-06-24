@@ -1,8 +1,8 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 const middleware = require('../middleware/auth-middleware.js')
 
-// might have to point my auth to java's instead of node.js 
 const authRouter = require('../auth/auth-router.js');
 const usersRouter = require('../users/users-router.js');
 const plantsRouter = require('../plants/plants-router.js');
@@ -11,6 +11,7 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
+server.use(cors());
 
 
 server.use("/api/auth", authRouter);

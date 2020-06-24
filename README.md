@@ -275,6 +275,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
     "helmet": "^3.23.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
+    "cors": "^2.8.5",
     "sqlite3": "^4.2.0",
   },
   "devDependencies": {
