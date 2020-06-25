@@ -3,19 +3,7 @@ const Plants = require('./plants-model.js');
 
 const validatePlantsId = require('../middleware/validate-plantsId.js');
 
-// find Ex: GET http://localhost:7171/api/plants
-// !!!!!! WARNING REQUIRES A TOKEN!!! INCLUDING ALL OTHER REQUESTS IN THIS FILE!!!!!!
-router.get('/', (req, res) => {
-  Plants.find()
-    .then(plants => {
-      res.json(plants);
-    })
-    .catch(error => {
-      res.status(500).json({ message: 'Failed to get plants.' });
-    });
-});
-
-
+// !!!!!! WARNING REQUIRES A TOKEN FOR REQUESTS IN THIS FILE!!!!!!
 // get plants by id Ex: GET http://localhost:7171/api/plants/2
 router.get('/:id', validatePlantsId, (req, res) => {
   const { id } = req.params;
@@ -27,7 +15,6 @@ router.get('/:id', validatePlantsId, (req, res) => {
       res.status(500).json({ message: 'Failed to get Plant.' });
     });
 });
-
 
 
 // updates plants by id Ex: PUT http://localhost:7171/api/plants/3 

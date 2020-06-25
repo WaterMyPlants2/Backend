@@ -60,7 +60,7 @@ function remove(id) {
 
 // updates a user
   function update(changes, id) {
-    return db("users")
+    return db('users')
       .where({ id })
       .update(changes)
       .then(count => {
