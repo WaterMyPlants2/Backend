@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const Users = require('../users/users-model.js');
 const Plants = require('../plants/plants-model.js');
-const constants = require("../config/constants.js");
+const constants = require('../config/constants.js');
 
 // register new user Ex: POST localhost:7171/api/auth/register
 router.post('/register', (req, res) => {
@@ -63,7 +63,7 @@ router.get('/plants', (req, res) => {
 });
 
 // header payload and verify signature
-// payload -> username, id, roles, expiration date
+// payload -> username, id, phoneNumber, expiration date
 function generateToken(user) {
   const payload = {
     sub: user.id,
@@ -73,7 +73,7 @@ function generateToken(user) {
 
   const secret = constants.jwtSecret;
   const options = {
-    expiresIn: "3d"
+    expiresIn: '3d'
   };
   // verify signature -> a secret
   return jwt.sign(payload, secret, options);

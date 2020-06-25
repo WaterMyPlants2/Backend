@@ -38,12 +38,13 @@ router.get('/:id', validateUserId, (req, res) => {
 		});
 });
 
-
 // create plants with user id Ex: POST localhost:7171/api/users/:id/plants
 router.post('/:id/plants', validateUserId, (req, res) => {
 	const plants = { ...req.body, user_id: req.params.id };
 
-	Plants.add(plants).then((added) => res.status(201).json(added)).catch((error) => {
+	Plants.add(plants)
+	.then((added) => res.status(201).json(added))
+	.catch((error) => {
 		res.status(500).json({ message: 'There are no plants with this user' });
 	});
 });
