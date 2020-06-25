@@ -93,7 +93,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
 }
  ```
 
-## POST /api/users/:id/plants
+## POST /api/users/:id/plants (REQUIRES TOKEN)
 ### Request Body:
 ```json
 {
@@ -134,7 +134,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
 ]
 ```
 
-## GET /api/users
+## GET /api/users (REQUIRES TOKEN)
 ### Returns:
 ```json
 [
@@ -166,7 +166,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
 ]
 ```
 
-## GET /api/users/:id
+## GET /api/users/:id (REQUIRES TOKEN)
 ### Returns:
 ```json
 {
@@ -176,7 +176,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
 }
 ```
 
-## GET /api/users/:id/plants
+## GET /api/users/:id/plants (REQUIRES TOKEN)
 ### Returns:
 ```json
 [
@@ -198,7 +198,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
     }
 ]
 ```
-## GET /api/plants/:id
+## GET /api/plants/:id (REQUIRES TOKEN)
 ### Returns:
 ```json
 {
@@ -211,7 +211,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
 }
 ```
 
-## PUT /api/users/:id
+## PUT /api/users/:id (REQUIRES TOKEN)
 ### Request Body(Can updates user's info):
 ```json
 {   "username": "jon",
@@ -228,7 +228,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
 }
 ```
 
-## PUT /api/plants/:id
+## PUT /api/plants/:id (REQUIRES TOKEN)
 ### Request Body:
 ```json
 {
@@ -250,7 +250,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
 }
 ```
 
-## DELETE /api/users/:id 
+## DELETE /api/users/:id (REQUIRES TOKEN)
 ### Returns:
 ```json
 {
@@ -258,7 +258,7 @@ https://water-my-plants-backend-drake.herokuapp.com/
 }
 ```
 
-## DELETE /api/plants/:id
+## DELETE /api/plants/:id (REQUIRES TOKEN)
 ### Returns:
 ```json 
 {
